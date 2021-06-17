@@ -29,3 +29,9 @@ a proper, relevant and sensible UI at least, not the default node boilerplate
 
 - AndIViewProxy browser running IViewProxy
 <img src="https://github.com/kaputnikGo/AndIViewProxy/blob/master/images/04-Browser-iviewproxy.png" height="450px" />
+
+- AndIViewProxy browser running IViewProxy full screen landscape
+<img src="https://github.com/kaputnikGo/AndIViewProxy/blob/master/images/05-Browser-ivp-full-landscape.png" height="450px" />
+
+- AndIViewProxy browser running IViewProxy full screen portrait
+<img src="https://github.com/kaputnikGo/AndIViewProxy/blob/master/images/06-Browser-ivp-full-portrait.png" height="612px" />
