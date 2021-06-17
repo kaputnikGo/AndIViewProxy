@@ -13,8 +13,12 @@ currently build target API30, minimum is API 22
 
 Release version is a signed APK, very low-brow app with no checks, no nice GUI, not proper etc etc
 
+Currently has boilerplate permission of INTERNET but its the device browser that uses it
+
 **TODO:**
-a proper, relevant and sensible UI at least, not the default node boilerplate
+- a proper, relevant and sensible UI at least, not the default node boilerplate
+
+- leanback shenanigans (maybe not)
 
 **Screenshots:**
 
