@@ -12,7 +12,6 @@ import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,21 +21,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.URL;
 import java.util.Objects;
 
 @SuppressLint("StaticFieldLeak")
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback{
 
-    public static final String VERSION = "0.0.1";
-    private static final String TAG = "IViewProxy";
+    public static final String VERSION = "1.1";
+    private static final String TAG = "AndIViewProxy";
     private static final int REQUEST_INTERNET_PERMISSION = 1;
     // Used to load the libraries on application startup.
     static {
@@ -68,14 +64,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                 message += getResources().getString(R.string.perms_state_2_2) + "\n\n";
                 message += Manifest.permission.INTERNET;
 
-                showPermissionsDialog(message, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.INTERNET},
-                                REQUEST_INTERNET_PERMISSION);
-                    }
-                });
+                showPermissionsDialog(message, (dialog, which) -> ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.INTERNET},
+                        REQUEST_INTERNET_PERMISSION));
         }
         else {
             // no reasoning, show perms request
@@ -88,62 +79,54 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         final TextView textViewVersions = findViewById(R.id.tvVersions);
         final Button buttonVersions = findViewById(R.id.btVersions);
 
-        buttonVersions.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //Network operations should be done in the background.
-                new AsyncTask<Void,Void,String>() {
-                    @Override
-                    protected String doInBackground(Void... params) {
-                        StringBuilder nodeResponse= new StringBuilder();
-                        try {
-                            URL localNodeServer = new URL("http://localhost:1984/");
-                            BufferedReader in = new BufferedReader(
-                                    new InputStreamReader(localNodeServer.openStream()));
-                            String inputLine;
-                            while ((inputLine = in.readLine()) != null)
-                                nodeResponse.append(inputLine);
-                            in.close();
-                        } catch (Exception ex) {
-                            nodeResponse = new StringBuilder(ex.toString());
-                        }
-                        return nodeResponse.toString();
+        buttonVersions.setOnClickListener(v -> {
+            //Network operations should be done in the background.
+            new AsyncTask<Void,Void,String>() {
+                @Override
+                protected String doInBackground(Void... params) {
+                    StringBuilder nodeResponse= new StringBuilder();
+                    try {
+                        //URL localNodeServer = new URL("http://localhost:1984/");
+                        nodeResponse.append("localNodeServer running at http://localhost:1984");
                     }
-                    @Override
-                    protected void onPostExecute(String result) {
-                        textViewVersions.setText(result);
+                    catch (Exception ex) {
+                        nodeResponse = new StringBuilder(ex.toString());
                     }
-                }.execute();
-            }
+                    return nodeResponse.toString();
+                }
+                @Override
+                protected void onPostExecute(String result) {
+                    textViewVersions.setText(result);
+                    buttonVersions.setText(R.string.buttonRunning);
+                }
+            }.execute();
         });
 
         // nodeseses
         if( !_startedNodeAlready ) {
             Log.d(TAG, "not node started already.");
             _startedNodeAlready=true;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //The path where we expect the node project to be at runtime.
-                    String nodeDir=getApplicationContext().getFilesDir().getAbsolutePath()+"/iview-proxy";
-                    Log.d(TAG, "looking for string node: " + nodeDir);
-                    if (wasAPKUpdated()) {
-                        //Recursively delete any existing nodejs-project.
-                        File nodeDirReference=new File(nodeDir);
-                        Log.d(TAG, "check if exists.");
-                        if (nodeDirReference.exists()) {
-                            deleteFolderRecursively(new File(nodeDir));
-                        }
-                        //Copy the node project from assets into the application's data path.
-                        Log.d(TAG, "call copy assets folder.");
-                        copyAssetFolder(getApplicationContext().getAssets(), "iview-proxy", nodeDir);
-
-                        saveLastUpdateTime();
+            new Thread(() -> {
+                //The path where we expect the node project to be at runtime.
+                String nodeDir=getApplicationContext().getFilesDir().getAbsolutePath()+"/iview-proxy";
+                Log.d(TAG, "looking for string node: " + nodeDir);
+                if (wasAPKUpdated()) {
+                    //Recursively delete any existing nodejs-project.
+                    File nodeDirReference=new File(nodeDir);
+                    Log.d(TAG, "check if exists.");
+                    if (nodeDirReference.exists()) {
+                        deleteFolderRecursively(new File(nodeDir));
                     }
-                    Log.d(TAG, "call start node.");
-                    startNodeWithArguments(new String[]{"node",
-                            nodeDir+"/app.js"
-                    });
+                    //Copy the node project from assets into the application's data path.
+                    Log.d(TAG, "call copy assets folder.");
+                    copyAssetFolder(getApplicationContext().getAssets(), "iview-proxy", nodeDir);
+
+                    saveLastUpdateTime();
                 }
+                Log.d(TAG, "call start node.");
+                startNodeWithArguments(new String[]{"node",
+                        nodeDir+"/app.js"
+                });
             }).start();
         }
         else {

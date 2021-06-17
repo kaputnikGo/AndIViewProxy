@@ -23,7 +23,7 @@ void *thread_stderr_func(void*) {
         buf[redirect_size] = 0;
         __android_log_write(ANDROID_LOG_ERROR, ADBTAG, buf);
     }
-    return 0;
+    return nullptr;
 }
 
 void *thread_stdout_func(void*) {
@@ -36,17 +36,17 @@ void *thread_stdout_func(void*) {
         buf[redirect_size] = 0;
         __android_log_write(ANDROID_LOG_INFO, ADBTAG, buf);
     }
-    return 0;
+    return nullptr;
 }
 
 int start_redirecting_stdout_stderr() {
     //set stdout as unbuffered.
-    setvbuf(stdout, 0, _IONBF, 0);
+    setvbuf(stdout, nullptr, _IONBF, 0);
     pipe(pipe_stdout);
     dup2(pipe_stdout[1], STDOUT_FILENO);
 
     //set stderr as unbuffered.
-    setvbuf(stderr, 0, _IONBF, 0);
+    setvbuf(stderr, nullptr, _IONBF, 0);
     pipe(pipe_stderr);
     dup2(pipe_stderr[1], STDERR_FILENO);
 
@@ -74,7 +74,7 @@ Java_cityfreqs_com_iviewproxy_MainActivity_startNodeWithArguments(
     //Compute byte size need for all arguments in contiguous memory.
     int c_arguments_size = 0;
     for (int i = 0; i < argument_count ; i++) {
-        c_arguments_size += strlen(env->GetStringUTFChars((jstring)env->GetObjectArrayElement(arguments, i), 0));
+        c_arguments_size += strlen(env->GetStringUTFChars((jstring)env->GetObjectArrayElement(arguments, i), nullptr));
         c_arguments_size++; // for '\0'
     }
 
@@ -90,7 +90,7 @@ Java_cityfreqs_com_iviewproxy_MainActivity_startNodeWithArguments(
     //Populate the args_buffer and argv.
     for (int i = 0; i < argument_count ; i++)
     {
-        const char* current_argument = env->GetStringUTFChars((jstring)env->GetObjectArrayElement(arguments, i), 0);
+        const char* current_argument = env->GetStringUTFChars((jstring)env->GetObjectArrayElement(arguments, i), nullptr);
 
         //Copy current argument to its expected position in args_buffer
         strncpy(current_args_position, current_argument, strlen(current_argument));
