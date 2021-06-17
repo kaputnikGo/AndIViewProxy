@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <%- include ('_headcontent'); %>
+        <title>iView Proxy - <%= query.id %></title>
+        <% if(notExists == false) { %>
+            <meta name="progtype" content="<%- progtype %>">
+            <meta name="id" content="<%- query.id %>">
+            <meta name="sig" content="<%- signature %>">
+            <meta name="dir" content="<%- dir %>">
+            <link href="/css/video-js.min.css" rel="stylesheet" />
+            <link href="/css/video.css" rel="stylesheet">
+        <% } %>
+    </head>
+    <body>
+        <%- include ('_header'); %>
+        <% if(notExists == true) { %>
+            <p>Show/series not found.</p>
+        <% } else { %>
+            <div class="video-container"></div>
+            <% if(progtype == 'show') {%>
+                <script src="/js/videojs/video.min.js"></script>
+            <% }else { %>
+                <div class="episode-list"></div>
+            <% } %>
+            <script src="/js/showapi.js"></script>
+        <% } %>
+    </body>
+</html>

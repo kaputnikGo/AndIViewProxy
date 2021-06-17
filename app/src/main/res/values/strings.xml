@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">IViewProxy</string>
+    <string name="node_versions">Node Versions</string>
+    <string name="press_node_button">Press Node Versionsbutton to call process.versions</string>
+
+    <string name="perms_state_2_1">Needs Internet permission, otherwise this app will not work.</string>
+    <string name="perms_state_2_2">The telly is on the internet now.</string>
+    <string name="perms_state_3">Permission denied, please close this app, it will not work without INTERNET permission.</string>
+    <string name="perms_state_4">Closing app due to no INTERNET permission granted.</string>
+
+    <string name="dialog_button_continue">Continue</string>
+
+</resources>
