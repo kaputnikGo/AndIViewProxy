@@ -10,4 +10,6 @@
 
     <color name="iview">#FF23ddd9</color>
     <color name="iview_second">#FF2384DD</color>
+    <color name="iview_back">#FF141414</color>
+    <color name="iview_text">#FFFFFFFF</color>
 </resources>

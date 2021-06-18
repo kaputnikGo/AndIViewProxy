@@ -3,12 +3,15 @@ package cityfreqs.com.iviewproxy;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +34,7 @@ import java.util.Objects;
 @SuppressLint("StaticFieldLeak")
 public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback{
 
-    public static final String VERSION = "1.1";
+    public static final String VERSION = "1.2";
     private static final String TAG = "AndIViewProxy";
     private static final int REQUEST_INTERNET_PERMISSION = 1;
     // Used to load the libraries on application startup.
@@ -43,15 +46,16 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     //one instance of node running in the background.
     public static boolean _startedNodeAlready=false;
 
+    @SuppressLint("QueryPermissionsNeeded")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // NOT USED IN THIS APP
         // permissions ask:
         // check API version, above 23 permissions are asked at runtime
         // if API version < 23 (6.x) fallback is manifest.xml file permission declares
-
         if (ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
             // continue
@@ -78,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
         final TextView textViewVersions = findViewById(R.id.tvVersions);
         final Button buttonVersions = findViewById(R.id.btVersions);
+        final Button launchBrowser = findViewById(R.id.launchBrowser);
+        final TextView introText = findViewById(R.id.introText);
+        //final TextView moreInfo = findViewById(R.id.moreInfo);
+        final Button moreButton = findViewById(R.id.moreButton);
 
         buttonVersions.setOnClickListener(v -> {
             //Network operations should be done in the background.
@@ -86,8 +94,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                 protected String doInBackground(Void... params) {
                     StringBuilder nodeResponse= new StringBuilder();
                     try {
-                        //URL localNodeServer = new URL("http://localhost:1984/");
-                        nodeResponse.append("localNodeServer running at http://localhost:1984");
+                        nodeResponse.append("localNodeServer running at http://localhost:1984 now press LAUNCH button to open the browser.");
                     }
                     catch (Exception ex) {
                         nodeResponse = new StringBuilder(ex.toString());
@@ -132,7 +139,52 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         else {
             Log.d(TAG, "else started node.");
         }
-    }
+
+        launchBrowser.setOnClickListener(v -> {
+            // open the device default browser, or select browser
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://localhost:1984"));
+            try {
+                if (browserIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(browserIntent);
+                }
+            } catch (ActivityNotFoundException ex) {
+                Toast.makeText(getApplicationContext(), "Open device browser failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // intro blurb with tracker names
+        String trackerString =
+                (getResources().getString(R.string.intro_blurb) + "\n\n")
+                        + (getResources().getString(R.string.tracker01) + "\n")
+                        + (getResources().getString(R.string.tracker02) + "\n")
+                        + (getResources().getString(R.string.tracker03) + "\n")
+                        + (getResources().getString(R.string.tracker04) + "\n")
+                        + (getResources().getString(R.string.tracker05) + "\n")
+                        + (getResources().getString(R.string.tracker06) + "\n")
+                        + (getResources().getString(R.string.tracker07) + "\n")
+                        + (getResources().getString(R.string.tracker08) + "\n")
+                        + (getResources().getString(R.string.tracker09) + "\n")
+                        + (getResources().getString(R.string.tracker10) + "\n")
+                        + (getResources().getString(R.string.tracker11) + "\n")
+                        + (getResources().getString(R.string.tracker12));
+
+        introText.setText(trackerString);
+
+        // more info stuff
+        moreButton.setOnClickListener(v -> {
+            // open the device default browser, or select browser
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://reports.exodus-privacy.eu.org/en/info/trackers/"));
+            try {
+                if (browserIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(browserIntent);
+                }
+            } catch (ActivityNotFoundException ex) {
+                Toast.makeText(getApplicationContext(), "Open device browser failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    } // end onCreate
 
 
     /**

@@ -1,9 +1,31 @@
 <resources>
     <string name="app_name">AndIViewProxy</string>
+
     <string name="node_versions">START</string>
-    <string name="press_node_button">launch this app, press START then open a proper browser with URL - localhost:1984 </string>
+    <string name="launch_button">LAUNCH</string>
+    <string name="more_button">MORE INFO</string>
 
+    <string name="press_node_button">run this app, press START then press LAUNCH button to open a proper browser loaded with the URL - localhost:1984 </string>
 
+    <string name="intro_blurb">Using this proxy bypasses the following trackers:</string>
+    <string name="tracker01">Youbora (NPAW)</string>
+    <string name="tracker02">Facebook Analytics</string>
+    <string name="tracker03">Facebook Login</string>
+    <string name="tracker04">Gigya (SAP)</string>
+    <string name="tracker05">Google Analytics</string>
+    <string name="tracker06">Google CrashLytics</string>
+    <string name="tracker07">Google Firebase Analytics</string>
+    <string name="tracker08">Google Tag Manager</string>
+    <string name="tracker09">Nielsen</string>
+    <string name="tracker10">OzTAM</string>
+    <string name="tracker11">Snowplow</string>
+    <string name="tracker12">Tealium</string>
+
+    <string name="more_info">What is a tracker? The MORE INFO button will open your device browser to a page on the Exodus Privacy website with an explanation.</string>
+
+    <!--
+    permissions not needed in this app as the device browser does the interneting
+    -->
     <string name="perms_state_2_1">Needs Internet permission, otherwise this app will not work.</string>
     <string name="perms_state_2_2">The telly is on the internet now.</string>
     <string name="perms_state_3">Permission denied, please close this app, it will not work without INTERNET permission.</string>
