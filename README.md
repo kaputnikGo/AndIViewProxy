@@ -31,6 +31,7 @@ Currently has boilerplate permission of INTERNET but its the device browser that
 Some on-screen easy-peasey instructions
 
 **TRACKERS**
+
 The following corporate trackers are bypassed by using this proxy
 as per Exodus Privacy latest report: <https://reports.exodus-privacy.eu.org/en/reports/182856/>
 
