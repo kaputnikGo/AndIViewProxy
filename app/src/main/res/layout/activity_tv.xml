@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TvActivity"
+    tools:deviceIds="tv"
+    tools:ignore="MergeRootFrame">
+
+    <!-- Nested RelativeLayout with overscan-safe margin -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Screen elements that need to be within the overscan safe area go here -->
+        <TextView
+            android:id="@+id/lowbrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+
+            android:text="@string/perms_state_2_2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/iview_text" />
+
+        <Button
+            android:id="@+id/btVersions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_below="@+id/lowbrow"
+            android:text="@string/node_versions"
+            android:textColor="@color/iview_back" />
+
+        <TextView
+            android:id="@+id/tvVersions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@id/btVersions"
+            android:text="@string/press_node_button"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/iview_text" />
+
+        <Button
+            android:id="@+id/launchBrowser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_below="@+id/tvVersions"
+            android:text="@string/launch_button"
+            android:textColor="@color/iview_back" />
+
+        <TextView
+            android:id="@+id/introText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/launchBrowser"
+            android:text="@string/intro_blurb"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/iview_text" />
+
+        <TextView
+            android:id="@+id/moreInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_below="@+id/introText"
+            android:text="@string/more_info"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/iview_text" />
+
+        <Button
+            android:id="@+id/moreButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_below="@+id/moreInfo"
+            android:text="@string/more_button"
+            android:textColor="@color/iview_back" />
+
+    </RelativeLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,9 +49,9 @@ as per Exodus Privacy latest report: <https://reports.exodus-privacy.eu.org/en/r
 - Tealium
 
 
-**TODO:**
+**TO-DOING:**
 
-- leanback shenanigans (maybe not)
+- leanback shenanigans (dont fall over, no emu)
 
 **Screenshots:**
 
